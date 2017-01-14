@@ -5,19 +5,16 @@ class SendingThread: public ofThread {
 public:
     SendingThread();
     ~SendingThread();
-    void analyze(ofPixels & pixels);
+    void sending(int rotate_deg);
     void update();
     bool isFrameNew();
-    ofPixels & getPixels();
-    ofTexture & getTexture();
-    void draw(float x, float y);
-    void draw(float x, float y, float w, float h);
+    void draw();
     
 private:
     void threadedFunction();
-    ofThreadChannel<ofPixels> toAnalyze;
-    ofThreadChannel<ofPixels> analyzed;
-    ofPixels pixels;
-    ofTexture texture;
+    ofThreadChannel<int> toSending;
+    ofThreadChannel<int> sended;
+    int rotate_deg;
     bool newFrame;
+    bool received;
 };

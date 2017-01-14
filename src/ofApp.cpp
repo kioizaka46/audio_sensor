@@ -45,15 +45,18 @@ void ofApp::update(){
     }
     if(execute_flag){
         ofLogNotice() << "DO ANITHING!! : " << ofGetElapsedTimeMillis();
-        if(rotate_degree == 180){
-//            system("ssh -i /Users/tmk-mac/Desktop/livehack_raspberrypi pi@169.254.184.112 'sudo python3 /home/pi/servo_controller.py 0'");
-//            system("sleep 2");
-
-            rotate_degree = 0;
-        }else{
+        if(rotate_degree == 0){
+            sender.sending(90);
+//            system("ssh -i /Users/tmk-mac/Desktop/livehack_raspberrypi pi@169.254.184.112 'sudo python3 /home/pi/servo_controller.py 90'");
+            rotate_degree = 90;
+        }else if(rotate_degree == 90){
 //            system("ssh -i /Users/tmk-mac/Desktop/livehack_raspberrypi pi@169.254.184.112 'sudo python3 /home/pi/servo_controller.py 180'");
-//            system("sleep 2");
+            sender.sending(180);
             rotate_degree = 180;
+        }else{
+//            system("ssh -i /Users/tmk-mac/Desktop/livehack_raspberrypi pi@169.254.184.112 'sudo python3 /home/pi/servo_controller.py 0'");
+            sender.sending(0);
+            rotate_degree = 0;
         }
         
         next_execute_time += sensor_interval_ms;
@@ -83,7 +86,7 @@ void ofApp::keyPressed(int key){
     if(key == 'r'){
 //        system("ssh -i /Users/tmk-mac/Desktop/livehack_raspberrypi pi@169.254.184.112 'sudo python3 /home/pi/servo_controller.py 180'");
         system("sleep 2");
-        sender.sending(90);
+//        sender.sending(90);
     }
     if(key == 'e'){
 //        system("ssh -i /Users/tmk-mac/Desktop/livehack_raspberrypi pi@169.254.184.112 'sudo python3 /home/pi/servo_controller.py 0'");
